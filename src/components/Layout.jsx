@@ -6,7 +6,6 @@ export default function Layout() {
     const location = useLocation();
     const navigate = useNavigate();
 
-    // Определяем заголовок в зависимости от пути
     const getTitle = () => {
         switch(location.pathname) {
             case '/': return 'Карта';
@@ -16,85 +15,43 @@ export default function Layout() {
         }
     };
 
-    // Обработчик кнопки "Назад"
-    const handleBack = () => {
-        navigate(-1);
+    const handleBack = () => navigate(-1);
+
+    const handleAction = () => {
+        if (location.pathname === '/') navigate('/menu');
+        else if (location.pathname === '/menu') navigate('/settingsmap');
+        else WebApp.close();
     };
 
-    // Обработчик кнопки меню/настроек
-    const handleAction = () => {
-        if (location.pathname === '/') {
-            navigate('/menu');
-        } else if (location.pathname === '/menu') {
-            navigate('/settingsmap');
-        } else {
-            WebApp.close();
-        }
+    const getActionIcon = () => {
+        if (location.pathname === '/menu') return <SlSettings className="tg-header-icon" />;
+        return <span className="tg-header-icon">✕</span>;
     };
 
     return (
-        <div className="tg-header" style={{
-            display: 'flex',
-            alignItems: 'center',
-            padding: '12px 16px',
-            }}>
-            {/* Левая иконка */}
-            <div className=".tg-header-icon" style={{ flex: 0 }}>
-                {location.pathname === '/' ? (
-                    <SlMenu 
-                        className="tg-header-icon" 
-                        onClick={handleAction}
-                        style={{ cursor: 'pointer' }}
-                    />
-                ) : (
-                    <SlArrowLeft 
-                        className="tg-header-icon" 
-                        onClick={handleBack}
-                        style={{ cursor: 'pointer' }}
-                    />
-                )}
+        <header className="tg-header">
+            <div className="tg-header-container">
+                {/* Левая иконка */}
+                <div className="tg-header-left">
+                    {location.pathname === '/' ? (
+                        <SlMenu className="tg-header-icon" onClick={handleAction} />
+                    ) : (
+                        <SlArrowLeft className="tg-header-icon" onClick={handleBack} />
+                    )}
+                </div>
+                
+                {/* Заголовок */}
+                <h1 className="tg-header-title">{getTitle()}</h1>
+                
+                {/* Правая иконка */}
+                <div className="tg-header-right">
+                    {location.pathname !== '/' && (
+                        <div onClick={handleAction}>
+                            {getActionIcon()}
+                        </div>
+                    )}
+                </div>
             </div>
-            
-            {/* Центральный заголовок */}
-            <h1 className="tg-header-title" style={{ 
-                margin: 0,
-                flex: 1,
-                textAlign: 'center',
-                padding: '0 8px' // Добавляем отступы от иконок
-            }}>
-                {getTitle()}
-            </h1>
-            
-            {/* Правая иконка */}
-            <div style={{ 
-              flex: 0,
-              marginLeft: 'auto'  // Добавляем это свойство для выравнивания вправо
-          }}>
-              {location.pathname !== '/' && (
-                  location.pathname === '/menu' ? (
-                      <SlSettings 
-                          className="tg-header-icon" 
-                          onClick={handleAction}
-                          style={{ 
-                              cursor: 'pointer',
-                              marginLeft: 'auto'  // Или можно добавить здесь
-                          }}
-                      />
-                  ) : (
-                      <span 
-                          className="tg-header-icon" 
-                          onClick={handleAction}
-                          style={{ 
-                              cursor: 'pointer', 
-                              fontSize: '20px',
-                              marginLeft: 'auto'  // Или можно добавить здесь
-                          }}
-                      >
-                          ✕
-                      </span>
-                  )
-              )}
-          </div>
-        </div>
+        </header>
     );
 }
