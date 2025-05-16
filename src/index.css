@@ -1,0 +1,266 @@
+/* styles/telegram.css */
+
+:root {
+  --tg-primary-color: #ffffff;
+  --tg-secondary-color: #ffffff;
+  --tg-bg-color: #f5f5f5;
+  --tg-white: #ffffff;
+  --tg-text-color: #333333;
+  --tg-text-secondary: #707579;
+  --tg-border-color: #e7e8ec;
+  --tg-chat-bg: #e6ebee;
+  --tg-message-bg: #ffffff;
+  --tg-message-out-bg: #e1ffc7;
+  --tg-error-color: #ff3b30;
+}
+
+/* Base styles */
+.tg-app {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background-color: var(--tg-bg-color);
+  color: var(--tg-text-color);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header styles */
+.tg-header {
+  background-color: var(--tg-primary-color);
+  color: #000000;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center; /* Добавлено для центрирования */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  position: relative; /* Для позиционирования иконок */
+}
+
+.tg-header-title {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0;
+  text-align: center; /* Центрирование текста */
+  position: absolute; /* Абсолютное позиционирование */
+  left: 50%; /* Центрирование по горизонтали */
+  transform: translateX(-50%); /* Точное центрирование */
+  width: 100%; /* Занимает всю ширину */
+  max-width: calc(100% - 100px); /* Оставляет место для иконок */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tg-header-icon {
+  cursor: pointer;
+  font-size: 20px;
+  position: absolute; /* Абсолютное позиционирование */
+  top: 50%; /* Вертикальное центрирование */
+  transform: translateY(-50%); /* Точное центрирование */
+}
+
+.tg-header-icon:first-child {
+  left: 16px; /* Левая иконка слева */
+}
+
+.tg-header-icon:last-child {
+  right: 16px; /* Правая иконка справа */
+}
+
+.tg-chat-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tg-chat-item {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--tg-border-color);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.tg-chat-item:hover {
+  background-color: var(--tg-bg-color);
+}
+
+.tg-chat-item.active {
+  background-color: var(--tg-chat-bg);
+}
+
+.tg-chat-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin-right: 12px;
+  background-color: var(--tg-secondary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--tg-white);
+  font-weight: bold;
+}
+
+.tg-chat-info {
+  flex-grow: 1;
+}
+
+.tg-chat-name {
+  font-weight: 500;
+  margin: 0 0 4px 0;
+}
+
+.tg-chat-preview {
+  font-size: 13px;
+  color: var(--tg-text-secondary);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tg-chat-time {
+  font-size: 12px;
+  color: var(--tg-text-secondary);
+}
+
+/* Chat area styles */
+.tg-chat-area {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--tg-chat-bg);
+}
+
+.tg-messages {
+  flex-grow: 1;
+  padding: 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.tg-message {
+  max-width: 70%;
+  margin-bottom: 12px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  position: relative;
+  word-wrap: break-word;
+}
+
+.tg-message-in {
+  align-self: flex-start;
+  background-color: var(--tg-message-bg);
+  border-top-left-radius: 0;
+}
+
+.tg-message-out {
+  align-self: flex-end;
+  background-color: var(--tg-message-out-bg);
+  border-top-right-radius: 0;
+}
+
+.tg-message-sender {
+  font-weight: 500;
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+.tg-message-text {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.tg-message-time {
+  font-size: 11px;
+  color: var(--tg-text-secondary);
+  text-align: right;
+  margin-top: 4px;
+}
+
+/* Input area styles */
+.tg-input-area {
+  padding: 12px;
+  background-color: var(--tg-white);
+  border-top: 1px solid var(--tg-border-color);
+  display: flex;
+  align-items: center;
+}
+
+.tg-input {
+  flex-grow: 1;
+  padding: 10px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--tg-border-color);
+  outline: none;
+  resize: none;
+  font-family: inherit;
+  font-size: 15px;
+  max-height: 120px;
+  min-height: 40px;
+}
+
+.tg-send-button {
+  margin-left: 12px;
+  background-color: var(--tg-primary-color);
+  color: var(--tg-white);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.tg-send-button:disabled {
+  background-color: var(--tg-text-secondary);
+  cursor: not-allowed;
+}
+
+/* Utility classes */
+.tg-button {
+  background-color: var(--tg-primary-color);
+  color: var(--tg-white);
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.tg-button:hover {
+  background-color: var(--tg-secondary-color);
+}
+
+.tg-button-secondary {
+  background-color: var(--tg-white);
+  color: var(--tg-primary-color);
+  border: 1px solid var(--tg-primary-color);
+}
+
+.tg-error {
+  color: var(--tg-error-color);
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+  .tg-sidebar {
+    width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--tg-border-color);
+  }
+  
+  .tg-app {
+    flex-direction: column;
+  }
+}
